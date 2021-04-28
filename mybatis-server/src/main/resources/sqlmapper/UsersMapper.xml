@@ -1,0 +1,1090 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.plug.dao.mapper.UsersMapper">
+  <resultMap id="BaseResultMap" type="com.mybatis.plug.dao.entity.Users">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users中所有非blob字段映射,对应实体类名:com.mybatis.plug.dao.entity.Users,请勿轻易修改.
+      表字段名称                     |  实体类字段名称                 |  字段类型                      |  字段备注
+      is_sender                     |  isSender                     |  Integer                      |  是否云信默认发送者（用于发送时无法提供发送者）
+1工作通知发送者
+2系统通知发送者
+...
+      sync_state                    |  syncState                    |  Integer                      |  与第三方同步状态1已同步0未同步
+      user_or_person                |  userOrPerson                 |  String                       |  用户或人员: 0用户; 1人员
+      user_type                     |  userType                     |  Integer                      |  用戶类型0：监管端用户 1：项目经理  2：企业端用户  3：星期天工程师
+      person_type                   |  personType                   |  String                       |  人员类型: 0起重机安装人员、1：特种作业人员、2:企业负责人（A证）,3:项目负责人（B证）,4:专职安全员（C证），99：一般人员（默认）
+，没有工种，默认99：一般人员。对应页面的工种
+      real_name                     |  realName                     |  String                       |  真实姓名
+      position                      |  position                     |  String                       |  职位
+      position_dic_id               |  positionDicId                |  Integer                      |  职位，字典表dic_code,dic_type确定唯一值
+      mobile                        |  mobile                       |  String                       |  手机
+      email                         |  email                        |  String                       |  邮箱
+      icon                          |  icon                         |  String                       |  头像地址
+      sign                          |  sign                         |  String                       |  签名
+      birth                         |  birth                        |  String                       |  生日
+      gender                        |  gender                       |  String                       |  性别 0表示未知，1表示男，2表示女
+      state                         |  state                        |  Integer                      |  1有效0失效
+      user_name                     |  userName                     |  String                       |  用户账号
+      password                      |  password                     |  String                       |  用户密码
+      active                        |  active                       |  Boolean                      |  是否激活钉钉
+      accid                         |  accid                        |  String                       |  网易云信ID
+      show_page                     |  showPage                     |  Integer                      |  app默认展示页面
+      nickname                      |  nickname                     |  String                       |  网易云通信ID昵称，最大长度64字符，用来PUSH推送
+            昵称，用来PUSH推送
+            昵称，用来PUSH推送时显示的昵称
+      token                         |  token                        |  String                       |  云信登录密码
+      ex                            |  ex                           |  String                       |  名片扩展字段建议封装成JSON字符串
+      court_id                      |  courtId                      |  Long                         |  机构id
+      props                         |  props                        |  String                       |  json属性，第三方可选填，最大长度1024字符
+      update_user_id                |  updateUserId                 |  Long                         |  更新人
+      update_time                   |  updateTime                   |  Date                         |  更新时间
+      create_user_id                |  createUserId                 |  Long                         |  第三方用户ID
+      create_time                   |  createTime                   |  Date                         |  创建时间
+      third_party_user_id           |  thirdPartyUserId             |  String                       |  第三放用户ID
+      area_code                     |  areaCode                     |  String                       |  行政编码
+      land_tel                      |  landTel                      |  String                       |  座机号码
+      superior_user_id              |  superiorUserId               |  Long                         |  直属上级
+
+      short_tel                     |  shortTel                     |  String                       |  短号
+      role_type                     |  roleType                     |  Integer                      |  
+      id_card                       |  idCard                       |  String                       |  身份证
+      if_external                   |  ifExternal                   |  String                       |  1内部0外部
+      photo_oss_key                 |  photoOssKey                  |  String                       |  电子照osskey
+      in_staff                      |  inStaff                      |  Integer                      |  是否编内人员
+      secret_related                |  secretRelated                |  Integer                      |  是否涉密人员
+      gesture_password              |  gesturePassword              |  String                       |  手势密码
+      gesture_password_active       |  gesturePasswordActive        |  Integer                      |  是否开启手势密码/0 不开启，1开启
+      mobile_flag                   |  mobileFlag                   |  Integer                      |  手机号显示标识1显示0隐藏
+      short_tel_flag                |  shortTelFlag                 |  Integer                      |  手机号显示标识1显示0隐藏
+      data_access                   |  dataAccess                   |  String                       |  数据权限 myself，dept，court，all，site
+      order_sort                    |  orderSort                    |  Integer                      |  排序
+      default_account               |  defaultAccount               |  Integer                      |  是否是该企业默认账户，1是，0否
+      active_type                   |  activeType                   |  Integer                      |  1启用0禁用
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="is_sender" jdbcType="INTEGER" property="isSender" />
+    <result column="sync_state" jdbcType="INTEGER" property="syncState" />
+    <result column="user_or_person" jdbcType="CHAR" property="userOrPerson" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="person_type" jdbcType="CHAR" property="personType" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="position_dic_id" jdbcType="INTEGER" property="positionDicId" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="sign" jdbcType="VARCHAR" property="sign" />
+    <result column="birth" jdbcType="VARCHAR" property="birth" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="active" jdbcType="BIT" property="active" />
+    <result column="accid" jdbcType="VARCHAR" property="accid" />
+    <result column="show_page" jdbcType="INTEGER" property="showPage" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="ex" jdbcType="VARCHAR" property="ex" />
+    <result column="court_id" jdbcType="BIGINT" property="courtId" />
+    <result column="props" jdbcType="VARCHAR" property="props" />
+    <result column="update_user_id" jdbcType="BIGINT" property="updateUserId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_user_id" jdbcType="BIGINT" property="createUserId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="third_party_user_id" jdbcType="VARCHAR" property="thirdPartyUserId" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="land_tel" jdbcType="VARCHAR" property="landTel" />
+    <result column="superior_user_id" jdbcType="BIGINT" property="superiorUserId" />
+    <result column="short_tel" jdbcType="VARCHAR" property="shortTel" />
+    <result column="role_type" jdbcType="INTEGER" property="roleType" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="if_external" jdbcType="CHAR" property="ifExternal" />
+    <result column="photo_oss_key" jdbcType="VARCHAR" property="photoOssKey" />
+    <result column="in_staff" jdbcType="INTEGER" property="inStaff" />
+    <result column="secret_related" jdbcType="INTEGER" property="secretRelated" />
+    <result column="gesture_password" jdbcType="VARCHAR" property="gesturePassword" />
+    <result column="gesture_password_active" jdbcType="INTEGER" property="gesturePasswordActive" />
+    <result column="mobile_flag" jdbcType="INTEGER" property="mobileFlag" />
+    <result column="short_tel_flag" jdbcType="INTEGER" property="shortTelFlag" />
+    <result column="data_access" jdbcType="VARCHAR" property="dataAccess" />
+    <result column="order_sort" jdbcType="INTEGER" property="orderSort" />
+    <result column="default_account" jdbcType="INTEGER" property="defaultAccount" />
+    <result column="active_type" jdbcType="INTEGER" property="activeType" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users的条件sql组装, Example: com.mybatis.plug.dao.entity.UsersExample, 请勿轻易修改.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users的条件sql组装, Example: com.mybatis.plug.dao.entity.UsersExample, 请勿轻易修改.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users中所有非blob字段,请勿轻易修改.
+    -->
+    id, is_sender, sync_state, user_or_person, user_type, person_type, real_name, `position`, 
+    position_dic_id, mobile, email, icon, sign, birth, gender, `state`, user_name, `password`, 
+    active, accid, show_page, nickname, token, ex, court_id, props, update_user_id, update_time, 
+    create_user_id, create_time, third_party_user_id, area_code, land_tel, superior_user_id, 
+    short_tel, role_type, id_card, if_external, photo_oss_key, in_staff, secret_related, 
+    gesture_password, gesture_password_active, mobile_flag, short_tel_flag, data_access, 
+    order_sort, default_account, active_type
+  </sql>
+  <select id="selectOneByExample" parameterType="com.mybatis.plug.dao.entity.UsersExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users 根据条件查询单条数据(不包含大字段) 的sql,请勿轻易修改.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yj_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    limit 0,1
+  </select>
+  <select id="selectByExample" parameterType="com.mybatis.plug.dao.entity.UsersExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users 根据条件查询(不含有大字段) 的sql,请勿轻易修改.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yj_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users 根据主键查询 的sql,请勿轻易修改.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from yj_users
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users的按主键进行物理删除的sql,请勿轻易修改.
+    -->
+    delete from yj_users
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mybatis.plug.dao.entity.UsersExample">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users的按条件物理删除的sql,请勿轻易修改.
+    -->
+    delete from yj_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mybatis.plug.dao.entity.Users">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users 单条插入 的sql,请勿轻易修改.
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into yj_users (is_sender, sync_state, user_or_person, 
+      user_type, person_type, real_name, 
+      `position`, position_dic_id, mobile, 
+      email, icon, sign, 
+      birth, gender, `state`, 
+      user_name, `password`, active, 
+      accid, show_page, nickname, 
+      token, ex, court_id, 
+      props, update_user_id, update_time, 
+      create_user_id, create_time, third_party_user_id, 
+      area_code, land_tel, superior_user_id, 
+      short_tel, role_type, id_card, 
+      if_external, photo_oss_key, in_staff, 
+      secret_related, gesture_password, gesture_password_active, 
+      mobile_flag, short_tel_flag, data_access, 
+      order_sort, default_account, active_type
+      )
+    values (#{isSender,jdbcType=INTEGER}, #{syncState,jdbcType=INTEGER}, #{userOrPerson,jdbcType=CHAR}, 
+      #{userType,jdbcType=INTEGER}, #{personType,jdbcType=CHAR}, #{realName,jdbcType=VARCHAR}, 
+      #{position,jdbcType=VARCHAR}, #{positionDicId,jdbcType=INTEGER}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, 
+      #{birth,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, 
+      #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{active,jdbcType=BIT}, 
+      #{accid,jdbcType=VARCHAR}, #{showPage,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR}, #{ex,jdbcType=VARCHAR}, #{courtId,jdbcType=BIGINT}, 
+      #{props,jdbcType=VARCHAR}, #{updateUserId,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createUserId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, #{thirdPartyUserId,jdbcType=VARCHAR}, 
+      #{areaCode,jdbcType=VARCHAR}, #{landTel,jdbcType=VARCHAR}, #{superiorUserId,jdbcType=BIGINT}, 
+      #{shortTel,jdbcType=VARCHAR}, #{roleType,jdbcType=INTEGER}, #{idCard,jdbcType=VARCHAR}, 
+      #{ifExternal,jdbcType=CHAR}, #{photoOssKey,jdbcType=VARCHAR}, #{inStaff,jdbcType=INTEGER}, 
+      #{secretRelated,jdbcType=INTEGER}, #{gesturePassword,jdbcType=VARCHAR}, #{gesturePasswordActive,jdbcType=INTEGER}, 
+      #{mobileFlag,jdbcType=INTEGER}, #{shortTelFlag,jdbcType=INTEGER}, #{dataAccess,jdbcType=VARCHAR}, 
+      #{orderSort,jdbcType=INTEGER}, #{defaultAccount,jdbcType=INTEGER}, #{activeType,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertList" parameterType="java.util.List">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users 批量插入 的sql,请勿轻易修改.
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into yj_users (is_sender, sync_state, user_or_person, 
+      user_type, person_type, real_name, 
+      `position`, position_dic_id, mobile, 
+      email, icon, sign, 
+      birth, gender, `state`, 
+      user_name, `password`, active, 
+      accid, show_page, nickname, 
+      token, ex, court_id, 
+      props, update_user_id, update_time, 
+      create_user_id, create_time, 
+      third_party_user_id, area_code, 
+      land_tel, superior_user_id, short_tel, 
+      role_type, id_card, if_external, 
+      photo_oss_key, in_staff, secret_related, 
+      gesture_password, gesture_password_active, 
+      mobile_flag, short_tel_flag, data_access, 
+      order_sort, default_account, 
+      active_type)
+    values
+    <foreach collection='records' item='item' index='index' separator=','>
+    (#{ item.isSender,jdbcType=INTEGER}, #{ item.syncState,jdbcType=INTEGER}, #{ item.userOrPerson,jdbcType=CHAR}, 
+      #{ item.userType,jdbcType=INTEGER}, #{ item.personType,jdbcType=CHAR}, #{ item.realName,jdbcType=VARCHAR}, 
+      #{ item.position,jdbcType=VARCHAR}, #{ item.positionDicId,jdbcType=INTEGER}, #{ item.mobile,jdbcType=VARCHAR}, 
+      #{ item.email,jdbcType=VARCHAR}, #{ item.icon,jdbcType=VARCHAR}, #{ item.sign,jdbcType=VARCHAR}, 
+      #{ item.birth,jdbcType=VARCHAR}, #{ item.gender,jdbcType=VARCHAR}, #{ item.state,jdbcType=INTEGER}, 
+      #{ item.userName,jdbcType=VARCHAR}, #{ item.password,jdbcType=VARCHAR}, #{ item.active,jdbcType=BIT}, 
+      #{ item.accid,jdbcType=VARCHAR}, #{ item.showPage,jdbcType=INTEGER}, #{ item.nickname,jdbcType=VARCHAR}, 
+      #{ item.token,jdbcType=VARCHAR}, #{ item.ex,jdbcType=VARCHAR}, #{ item.courtId,jdbcType=BIGINT}, 
+      #{ item.props,jdbcType=VARCHAR}, #{ item.updateUserId,jdbcType=BIGINT}, #{ item.updateTime,jdbcType=TIMESTAMP}, 
+      #{ item.createUserId,jdbcType=BIGINT}, #{ item.createTime,jdbcType=TIMESTAMP}, 
+      #{ item.thirdPartyUserId,jdbcType=VARCHAR}, #{ item.areaCode,jdbcType=VARCHAR}, 
+      #{ item.landTel,jdbcType=VARCHAR}, #{ item.superiorUserId,jdbcType=BIGINT}, #{ item.shortTel,jdbcType=VARCHAR}, 
+      #{ item.roleType,jdbcType=INTEGER}, #{ item.idCard,jdbcType=VARCHAR}, #{ item.ifExternal,jdbcType=CHAR}, 
+      #{ item.photoOssKey,jdbcType=VARCHAR}, #{ item.inStaff,jdbcType=INTEGER}, #{ item.secretRelated,jdbcType=INTEGER}, 
+      #{ item.gesturePassword,jdbcType=VARCHAR}, #{ item.gesturePasswordActive,jdbcType=INTEGER}, 
+      #{ item.mobileFlag,jdbcType=INTEGER}, #{ item.shortTelFlag,jdbcType=INTEGER}, #{ item.dataAccess,jdbcType=VARCHAR}, 
+      #{ item.orderSort,jdbcType=INTEGER}, #{ item.defaultAccount,jdbcType=INTEGER}, 
+      #{ item.activeType,jdbcType=INTEGER})
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.mybatis.plug.dao.entity.Users">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users 根据条件单条插入 的sql,请勿轻易修改.
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into yj_users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="isSender != null">
+        is_sender,
+      </if>
+      <if test="syncState != null">
+        sync_state,
+      </if>
+      <if test="userOrPerson != null">
+        user_or_person,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="personType != null">
+        person_type,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="position != null">
+        `position`,
+      </if>
+      <if test="positionDicId != null">
+        position_dic_id,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="sign != null">
+        sign,
+      </if>
+      <if test="birth != null">
+        birth,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="accid != null">
+        accid,
+      </if>
+      <if test="showPage != null">
+        show_page,
+      </if>
+      <if test="nickname != null">
+        nickname,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="ex != null">
+        ex,
+      </if>
+      <if test="courtId != null">
+        court_id,
+      </if>
+      <if test="props != null">
+        props,
+      </if>
+      <if test="updateUserId != null">
+        update_user_id,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createUserId != null">
+        create_user_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="thirdPartyUserId != null">
+        third_party_user_id,
+      </if>
+      <if test="areaCode != null">
+        area_code,
+      </if>
+      <if test="landTel != null">
+        land_tel,
+      </if>
+      <if test="superiorUserId != null">
+        superior_user_id,
+      </if>
+      <if test="shortTel != null">
+        short_tel,
+      </if>
+      <if test="roleType != null">
+        role_type,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="ifExternal != null">
+        if_external,
+      </if>
+      <if test="photoOssKey != null">
+        photo_oss_key,
+      </if>
+      <if test="inStaff != null">
+        in_staff,
+      </if>
+      <if test="secretRelated != null">
+        secret_related,
+      </if>
+      <if test="gesturePassword != null">
+        gesture_password,
+      </if>
+      <if test="gesturePasswordActive != null">
+        gesture_password_active,
+      </if>
+      <if test="mobileFlag != null">
+        mobile_flag,
+      </if>
+      <if test="shortTelFlag != null">
+        short_tel_flag,
+      </if>
+      <if test="dataAccess != null">
+        data_access,
+      </if>
+      <if test="orderSort != null">
+        order_sort,
+      </if>
+      <if test="defaultAccount != null">
+        default_account,
+      </if>
+      <if test="activeType != null">
+        active_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="isSender != null">
+        #{isSender,jdbcType=INTEGER},
+      </if>
+      <if test="syncState != null">
+        #{syncState,jdbcType=INTEGER},
+      </if>
+      <if test="userOrPerson != null">
+        #{userOrPerson,jdbcType=CHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="personType != null">
+        #{personType,jdbcType=CHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="positionDicId != null">
+        #{positionDicId,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        #{birth,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=BIT},
+      </if>
+      <if test="accid != null">
+        #{accid,jdbcType=VARCHAR},
+      </if>
+      <if test="showPage != null">
+        #{showPage,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="ex != null">
+        #{ex,jdbcType=VARCHAR},
+      </if>
+      <if test="courtId != null">
+        #{courtId,jdbcType=BIGINT},
+      </if>
+      <if test="props != null">
+        #{props,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirdPartyUserId != null">
+        #{thirdPartyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="landTel != null">
+        #{landTel,jdbcType=VARCHAR},
+      </if>
+      <if test="superiorUserId != null">
+        #{superiorUserId,jdbcType=BIGINT},
+      </if>
+      <if test="shortTel != null">
+        #{shortTel,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null">
+        #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="ifExternal != null">
+        #{ifExternal,jdbcType=CHAR},
+      </if>
+      <if test="photoOssKey != null">
+        #{photoOssKey,jdbcType=VARCHAR},
+      </if>
+      <if test="inStaff != null">
+        #{inStaff,jdbcType=INTEGER},
+      </if>
+      <if test="secretRelated != null">
+        #{secretRelated,jdbcType=INTEGER},
+      </if>
+      <if test="gesturePassword != null">
+        #{gesturePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="gesturePasswordActive != null">
+        #{gesturePasswordActive,jdbcType=INTEGER},
+      </if>
+      <if test="mobileFlag != null">
+        #{mobileFlag,jdbcType=INTEGER},
+      </if>
+      <if test="shortTelFlag != null">
+        #{shortTelFlag,jdbcType=INTEGER},
+      </if>
+      <if test="dataAccess != null">
+        #{dataAccess,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSort != null">
+        #{orderSort,jdbcType=INTEGER},
+      </if>
+      <if test="defaultAccount != null">
+        #{defaultAccount,jdbcType=INTEGER},
+      </if>
+      <if test="activeType != null">
+        #{activeType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mybatis.plug.dao.entity.UsersExample" resultType="java.lang.Long">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users的按条件查询数量的sql,请勿轻易修改.
+    -->
+    select count(*) from yj_users
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users 根据条件更新(非空更新) sql,请勿轻易修改.
+    -->
+    update yj_users
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.isSender != null">
+        is_sender = #{record.isSender,jdbcType=INTEGER},
+      </if>
+      <if test="record.syncState != null">
+        sync_state = #{record.syncState,jdbcType=INTEGER},
+      </if>
+      <if test="record.userOrPerson != null">
+        user_or_person = #{record.userOrPerson,jdbcType=CHAR},
+      </if>
+      <if test="record.userType != null">
+        user_type = #{record.userType,jdbcType=INTEGER},
+      </if>
+      <if test="record.personType != null">
+        person_type = #{record.personType,jdbcType=CHAR},
+      </if>
+      <if test="record.realName != null">
+        real_name = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null">
+        `position` = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.positionDicId != null">
+        position_dic_id = #{record.positionDicId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sign != null">
+        sign = #{record.sign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birth != null">
+        birth = #{record.birth,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        `password` = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.active != null">
+        active = #{record.active,jdbcType=BIT},
+      </if>
+      <if test="record.accid != null">
+        accid = #{record.accid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.showPage != null">
+        show_page = #{record.showPage,jdbcType=INTEGER},
+      </if>
+      <if test="record.nickname != null">
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.token != null">
+        token = #{record.token,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ex != null">
+        ex = #{record.ex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courtId != null">
+        court_id = #{record.courtId,jdbcType=BIGINT},
+      </if>
+      <if test="record.props != null">
+        props = #{record.props,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateUserId != null">
+        update_user_id = #{record.updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createUserId != null">
+        create_user_id = #{record.createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.thirdPartyUserId != null">
+        third_party_user_id = #{record.thirdPartyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaCode != null">
+        area_code = #{record.areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.landTel != null">
+        land_tel = #{record.landTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.superiorUserId != null">
+        superior_user_id = #{record.superiorUserId,jdbcType=BIGINT},
+      </if>
+      <if test="record.shortTel != null">
+        short_tel = #{record.shortTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleType != null">
+        role_type = #{record.roleType,jdbcType=INTEGER},
+      </if>
+      <if test="record.idCard != null">
+        id_card = #{record.idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ifExternal != null">
+        if_external = #{record.ifExternal,jdbcType=CHAR},
+      </if>
+      <if test="record.photoOssKey != null">
+        photo_oss_key = #{record.photoOssKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inStaff != null">
+        in_staff = #{record.inStaff,jdbcType=INTEGER},
+      </if>
+      <if test="record.secretRelated != null">
+        secret_related = #{record.secretRelated,jdbcType=INTEGER},
+      </if>
+      <if test="record.gesturePassword != null">
+        gesture_password = #{record.gesturePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gesturePasswordActive != null">
+        gesture_password_active = #{record.gesturePasswordActive,jdbcType=INTEGER},
+      </if>
+      <if test="record.mobileFlag != null">
+        mobile_flag = #{record.mobileFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.shortTelFlag != null">
+        short_tel_flag = #{record.shortTelFlag,jdbcType=INTEGER},
+      </if>
+      <if test="record.dataAccess != null">
+        data_access = #{record.dataAccess,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderSort != null">
+        order_sort = #{record.orderSort,jdbcType=INTEGER},
+      </if>
+      <if test="record.defaultAccount != null">
+        default_account = #{record.defaultAccount,jdbcType=INTEGER},
+      </if>
+      <if test="record.activeType != null">
+        active_type = #{record.activeType,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users 根据条件更新(不包含大字段) sql,请勿轻易修改.
+    -->
+    update yj_users
+    set id = #{record.id,jdbcType=BIGINT},
+      is_sender = #{record.isSender,jdbcType=INTEGER},
+      sync_state = #{record.syncState,jdbcType=INTEGER},
+      user_or_person = #{record.userOrPerson,jdbcType=CHAR},
+      user_type = #{record.userType,jdbcType=INTEGER},
+      person_type = #{record.personType,jdbcType=CHAR},
+      real_name = #{record.realName,jdbcType=VARCHAR},
+      `position` = #{record.position,jdbcType=VARCHAR},
+      position_dic_id = #{record.positionDicId,jdbcType=INTEGER},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      sign = #{record.sign,jdbcType=VARCHAR},
+      birth = #{record.birth,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      `state` = #{record.state,jdbcType=INTEGER},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR},
+      active = #{record.active,jdbcType=BIT},
+      accid = #{record.accid,jdbcType=VARCHAR},
+      show_page = #{record.showPage,jdbcType=INTEGER},
+      nickname = #{record.nickname,jdbcType=VARCHAR},
+      token = #{record.token,jdbcType=VARCHAR},
+      ex = #{record.ex,jdbcType=VARCHAR},
+      court_id = #{record.courtId,jdbcType=BIGINT},
+      props = #{record.props,jdbcType=VARCHAR},
+      update_user_id = #{record.updateUserId,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      create_user_id = #{record.createUserId,jdbcType=BIGINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      third_party_user_id = #{record.thirdPartyUserId,jdbcType=VARCHAR},
+      area_code = #{record.areaCode,jdbcType=VARCHAR},
+      land_tel = #{record.landTel,jdbcType=VARCHAR},
+      superior_user_id = #{record.superiorUserId,jdbcType=BIGINT},
+      short_tel = #{record.shortTel,jdbcType=VARCHAR},
+      role_type = #{record.roleType,jdbcType=INTEGER},
+      id_card = #{record.idCard,jdbcType=VARCHAR},
+      if_external = #{record.ifExternal,jdbcType=CHAR},
+      photo_oss_key = #{record.photoOssKey,jdbcType=VARCHAR},
+      in_staff = #{record.inStaff,jdbcType=INTEGER},
+      secret_related = #{record.secretRelated,jdbcType=INTEGER},
+      gesture_password = #{record.gesturePassword,jdbcType=VARCHAR},
+      gesture_password_active = #{record.gesturePasswordActive,jdbcType=INTEGER},
+      mobile_flag = #{record.mobileFlag,jdbcType=INTEGER},
+      short_tel_flag = #{record.shortTelFlag,jdbcType=INTEGER},
+      data_access = #{record.dataAccess,jdbcType=VARCHAR},
+      order_sort = #{record.orderSort,jdbcType=INTEGER},
+      default_account = #{record.defaultAccount,jdbcType=INTEGER},
+      active_type = #{record.activeType,jdbcType=INTEGER}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mybatis.plug.dao.entity.Users">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users 根据主键更新(非空更新) sql,请勿轻易修改.
+    -->
+    update yj_users
+    <set>
+      <if test="isSender != null">
+        is_sender = #{isSender,jdbcType=INTEGER},
+      </if>
+      <if test="syncState != null">
+        sync_state = #{syncState,jdbcType=INTEGER},
+      </if>
+      <if test="userOrPerson != null">
+        user_or_person = #{userOrPerson,jdbcType=CHAR},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="personType != null">
+        person_type = #{personType,jdbcType=CHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        `position` = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="positionDicId != null">
+        position_dic_id = #{positionDicId,jdbcType=INTEGER},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null">
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="birth != null">
+        birth = #{birth,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=BIT},
+      </if>
+      <if test="accid != null">
+        accid = #{accid,jdbcType=VARCHAR},
+      </if>
+      <if test="showPage != null">
+        show_page = #{showPage,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="ex != null">
+        ex = #{ex,jdbcType=VARCHAR},
+      </if>
+      <if test="courtId != null">
+        court_id = #{courtId,jdbcType=BIGINT},
+      </if>
+      <if test="props != null">
+        props = #{props,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null">
+        update_user_id = #{updateUserId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserId != null">
+        create_user_id = #{createUserId,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thirdPartyUserId != null">
+        third_party_user_id = #{thirdPartyUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="areaCode != null">
+        area_code = #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="landTel != null">
+        land_tel = #{landTel,jdbcType=VARCHAR},
+      </if>
+      <if test="superiorUserId != null">
+        superior_user_id = #{superiorUserId,jdbcType=BIGINT},
+      </if>
+      <if test="shortTel != null">
+        short_tel = #{shortTel,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null">
+        role_type = #{roleType,jdbcType=INTEGER},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="ifExternal != null">
+        if_external = #{ifExternal,jdbcType=CHAR},
+      </if>
+      <if test="photoOssKey != null">
+        photo_oss_key = #{photoOssKey,jdbcType=VARCHAR},
+      </if>
+      <if test="inStaff != null">
+        in_staff = #{inStaff,jdbcType=INTEGER},
+      </if>
+      <if test="secretRelated != null">
+        secret_related = #{secretRelated,jdbcType=INTEGER},
+      </if>
+      <if test="gesturePassword != null">
+        gesture_password = #{gesturePassword,jdbcType=VARCHAR},
+      </if>
+      <if test="gesturePasswordActive != null">
+        gesture_password_active = #{gesturePasswordActive,jdbcType=INTEGER},
+      </if>
+      <if test="mobileFlag != null">
+        mobile_flag = #{mobileFlag,jdbcType=INTEGER},
+      </if>
+      <if test="shortTelFlag != null">
+        short_tel_flag = #{shortTelFlag,jdbcType=INTEGER},
+      </if>
+      <if test="dataAccess != null">
+        data_access = #{dataAccess,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSort != null">
+        order_sort = #{orderSort,jdbcType=INTEGER},
+      </if>
+      <if test="defaultAccount != null">
+        default_account = #{defaultAccount,jdbcType=INTEGER},
+      </if>
+      <if test="activeType != null">
+        active_type = #{activeType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mybatis.plug.dao.entity.Users">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_users 根据主键更新(不包含大字段) sql,请勿轻易修改.
+    -->
+    update yj_users
+    set is_sender = #{isSender,jdbcType=INTEGER},
+      sync_state = #{syncState,jdbcType=INTEGER},
+      user_or_person = #{userOrPerson,jdbcType=CHAR},
+      user_type = #{userType,jdbcType=INTEGER},
+      person_type = #{personType,jdbcType=CHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      `position` = #{position,jdbcType=VARCHAR},
+      position_dic_id = #{positionDicId,jdbcType=INTEGER},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      birth = #{birth,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=INTEGER},
+      user_name = #{userName,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      active = #{active,jdbcType=BIT},
+      accid = #{accid,jdbcType=VARCHAR},
+      show_page = #{showPage,jdbcType=INTEGER},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      ex = #{ex,jdbcType=VARCHAR},
+      court_id = #{courtId,jdbcType=BIGINT},
+      props = #{props,jdbcType=VARCHAR},
+      update_user_id = #{updateUserId,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user_id = #{createUserId,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      third_party_user_id = #{thirdPartyUserId,jdbcType=VARCHAR},
+      area_code = #{areaCode,jdbcType=VARCHAR},
+      land_tel = #{landTel,jdbcType=VARCHAR},
+      superior_user_id = #{superiorUserId,jdbcType=BIGINT},
+      short_tel = #{shortTel,jdbcType=VARCHAR},
+      role_type = #{roleType,jdbcType=INTEGER},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      if_external = #{ifExternal,jdbcType=CHAR},
+      photo_oss_key = #{photoOssKey,jdbcType=VARCHAR},
+      in_staff = #{inStaff,jdbcType=INTEGER},
+      secret_related = #{secretRelated,jdbcType=INTEGER},
+      gesture_password = #{gesturePassword,jdbcType=VARCHAR},
+      gesture_password_active = #{gesturePasswordActive,jdbcType=INTEGER},
+      mobile_flag = #{mobileFlag,jdbcType=INTEGER},
+      short_tel_flag = #{shortTelFlag,jdbcType=INTEGER},
+      data_access = #{dataAccess,jdbcType=VARCHAR},
+      order_sort = #{orderSort,jdbcType=INTEGER},
+      default_account = #{defaultAccount,jdbcType=INTEGER},
+      active_type = #{activeType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.plug.dao.mapper.ProCompleteCancelMapper">
+  <resultMap id="BaseResultMap" type="com.mybatis.plug.dao.entity.ProCompleteCancel">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel中所有非blob字段映射,对应实体类名:com.mybatis.plug.dao.entity.ProCompleteCancel,请勿轻易修改.
+      表字段名称                     |  实体类字段名称                 |  字段类型                      |  字段备注
+      project_id                    |  projectId                    |  Long                         |  
+      type                          |  type                         |  String                       |  销号类型：经理1；总监0
+      supervision_status            |  supervisionStatus            |  String                       |  质量安全监督情况:0未办理，1已办理
+      gmt_create                    |  gmtCreate                    |  Date                         |  创建时间
+      creator                       |  creator                      |  Long                         |  创建人
+      gmt_modified                  |  gmtModified                  |  Date                         |  更新时间
+      operator                      |  operator                     |  Long                         |  更新人
+      status                        |  status                       |  String                       |  流程状态
+      deleted                       |  deleted                      |  Boolean                      |  删除标记: 1未删除; 0已删除
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="supervision_status" jdbcType="CHAR" property="supervisionStatus" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="creator" jdbcType="BIGINT" property="creator" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="operator" jdbcType="BIGINT" property="operator" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel的条件sql组装, Example: com.mybatis.plug.dao.entity.ProCompleteCancelExample, 请勿轻易修改.
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel的条件sql组装, Example: com.mybatis.plug.dao.entity.ProCompleteCancelExample, 请勿轻易修改.
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel中所有非blob字段,请勿轻易修改.
+    -->
+    id, project_id, `type`, supervision_status, gmt_create, creator, gmt_modified, `operator`, 
+    `status`, deleted
+  </sql>
+  <select id="selectOneByExample" parameterType="com.mybatis.plug.dao.entity.ProCompleteCancelExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel 根据条件查询单条数据(不包含大字段) 的sql,请勿轻易修改.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yj_pro_complete_cancel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    limit 0,1
+  </select>
+  <select id="selectByExample" parameterType="com.mybatis.plug.dao.entity.ProCompleteCancelExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel 根据条件查询(不含有大字段) 的sql,请勿轻易修改.
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from yj_pro_complete_cancel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel 根据主键查询 的sql,请勿轻易修改.
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from yj_pro_complete_cancel
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel的按主键进行物理删除的sql,请勿轻易修改.
+    -->
+    delete from yj_pro_complete_cancel
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mybatis.plug.dao.entity.ProCompleteCancelExample">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel的按条件物理删除的sql,请勿轻易修改.
+    -->
+    delete from yj_pro_complete_cancel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mybatis.plug.dao.entity.ProCompleteCancel">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel 单条插入 的sql,请勿轻易修改.
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into yj_pro_complete_cancel (project_id, `type`, supervision_status, 
+      gmt_create, creator, gmt_modified, 
+      `operator`, `status`, deleted
+      )
+    values (#{projectId,jdbcType=BIGINT}, #{type,jdbcType=CHAR}, #{supervisionStatus,jdbcType=CHAR}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{creator,jdbcType=BIGINT}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{operator,jdbcType=BIGINT}, #{status,jdbcType=VARCHAR}, #{deleted,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertList" parameterType="java.util.List">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel 批量插入 的sql,请勿轻易修改.
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into yj_pro_complete_cancel (project_id, `type`, supervision_status, 
+      gmt_create, creator, gmt_modified, 
+      `operator`, `status`, deleted
+      )
+    values
+    <foreach collection='records' item='item' index='index' separator=','>
+    (#{ item.projectId,jdbcType=BIGINT}, #{ item.type,jdbcType=CHAR}, #{ item.supervisionStatus,jdbcType=CHAR}, 
+      #{ item.gmtCreate,jdbcType=TIMESTAMP}, #{ item.creator,jdbcType=BIGINT}, #{ item.gmtModified,jdbcType=TIMESTAMP}, 
+      #{ item.operator,jdbcType=BIGINT}, #{ item.status,jdbcType=VARCHAR}, #{ item.deleted,jdbcType=BIT}
+      )
+    </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.mybatis.plug.dao.entity.ProCompleteCancel">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel 根据条件单条插入 的sql,请勿轻易修改.
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into yj_pro_complete_cancel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="supervisionStatus != null">
+        supervision_status,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="operator != null">
+        `operator`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="deleted != null">
+        deleted,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="projectId != null">
+        #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="supervisionStatus != null">
+        #{supervisionStatus,jdbcType=CHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        #{deleted,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mybatis.plug.dao.entity.ProCompleteCancelExample" resultType="java.lang.Long">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel的按条件查询数量的sql,请勿轻易修改.
+    -->
+    select count(*) from yj_pro_complete_cancel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel 根据条件更新(非空更新) sql,请勿轻易修改.
+    -->
+    update yj_pro_complete_cancel
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null">
+        `type` = #{record.type,jdbcType=CHAR},
+      </if>
+      <if test="record.supervisionStatus != null">
+        supervision_status = #{record.supervisionStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=BIGINT},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.operator != null">
+        `operator` = #{record.operator,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleted != null">
+        deleted = #{record.deleted,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel 根据条件更新(不包含大字段) sql,请勿轻易修改.
+    -->
+    update yj_pro_complete_cancel
+    set id = #{record.id,jdbcType=BIGINT},
+      project_id = #{record.projectId,jdbcType=BIGINT},
+      `type` = #{record.type,jdbcType=CHAR},
+      supervision_status = #{record.supervisionStatus,jdbcType=CHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      creator = #{record.creator,jdbcType=BIGINT},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      `operator` = #{record.operator,jdbcType=BIGINT},
+      `status` = #{record.status,jdbcType=VARCHAR},
+      deleted = #{record.deleted,jdbcType=BIT}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mybatis.plug.dao.entity.ProCompleteCancel">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel 根据主键更新(非空更新) sql,请勿轻易修改.
+    -->
+    update yj_pro_complete_cancel
+    <set>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        `type` = #{type,jdbcType=CHAR},
+      </if>
+      <if test="supervisionStatus != null">
+        supervision_status = #{supervisionStatus,jdbcType=CHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=BIGINT},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operator != null">
+        `operator` = #{operator,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        deleted = #{deleted,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mybatis.plug.dao.entity.ProCompleteCancel">
+    <!--
+      WARNING - @boost.generated
+      表名: yj_pro_complete_cancel 根据主键更新(不包含大字段) sql,请勿轻易修改.
+    -->
+    update yj_pro_complete_cancel
+    set project_id = #{projectId,jdbcType=BIGINT},
+      `type` = #{type,jdbcType=CHAR},
+      supervision_status = #{supervisionStatus,jdbcType=CHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      creator = #{creator,jdbcType=BIGINT},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      `operator` = #{operator,jdbcType=BIGINT},
+      `status` = #{status,jdbcType=VARCHAR},
+      deleted = #{deleted,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

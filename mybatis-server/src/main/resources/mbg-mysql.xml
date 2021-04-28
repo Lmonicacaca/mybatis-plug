@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        SYSTEM "./org/mybatis/generator/config/xml/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--    <properties resource="mysql/init-config.properties"/>-->
+    <context id="mysqlTables" targetRuntime="MyBatis3">
+
+        <!-- 自动识别数据库关键字，默认false 开始-->
+        <property name="autoDelimitKeywords" value="true"/>
+        <!--可以使用``包括字段名，避免字段名与sql保留字冲突报错 -->
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="rootInterface" value="com.mybatis.plug.mapper.BaseMapper"/>
+        <property name="rootExameple" value="com.mybatis.plug.query.BaseExample"/>
+        <property name="rootBlobsInterface" value="com.mybatis.plug.mapper.BlobsMapper"/>
+        <property name="rootServiceInterface" value="com.mybatis.plug.service.IService"/>
+        <property name="rootServiceImpl" value="com.mybatis.plug.service.impl.ServiceImpl"/>
+        <property name="rootBlobsServiceImpl" value="com.mybatis.plug.service.impl.BlobsServiceImpl"/>
+        <!-- 自动识别数据库关键字，默认false  结束-->
+
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="DBType" value="mysql"></property>
+
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+
+        <!--序列化-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"></plugin>
+        <!--Example替换成Criteria-->
+        <!--        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">-->
+        <!--            <property name="searchString" value="Example$"/>-->
+        <!--            <property name="replaceString" value="Criteria"/>-->
+        <!--        </plugin>-->
+
+        <!--虚拟组件，针对表没有设置主键的时候使用-->
+        <plugin type="org.mybatis.generator.plugins.VirtualPrimaryKeyPlugin"/>
+        <!--逻辑删除组件，针对表逻辑删除时候使用 全局设置，具体表的单独设置逻辑字段 会被覆盖-->
+        <!--     <plugin type="org.idol.generator.plugin.LogicDeletePlugin">
+                 &lt;!&ndash; 逻辑删除的注解标识 &ndash;&gt;
+                 &lt;!&ndash; 逻辑删除列 &ndash;&gt;
+                 <property name="logicalDeleteColumn" value="is_deleted"/>
+                 &lt;!&ndash; 逻辑删除的value &ndash;&gt;
+                 <property name="logicalDeleteValue" value="false"/>
+                 &lt;!&ndash; 逻辑未删除的value &ndash;&gt;
+                 <property name="logicalUnDeleteValue" value="true"/>
+                 <property name="enableLogicalDeleteConst" value="true"/>
+
+             </plugin>-->
+        <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin"></plugin>
+
+        <plugin type="org.idol.generator.plugin.EnumTypePlugin">
+            <!-- 是否开启自动扫描根据约定注释格式生成枚举，默认true -->
+            <property name="autoScan" value="true"/>
+            <!-- autoScan为false,这里可以定义全局需要检查生成枚举类的列名 -->
+            <property name="enumColumns" value="progress, status"/>
+        </plugin>
+
+        <plugin type="org.idol.generator.plugin.AutoFillPlugin">
+            <property name="gmt_create" value="insert"/>
+            <property name="gmt_modified" value="insert,update"/>
+            <property name="creator" value="insert"/>
+            <property name="operator" value="insert,update"/>
+            <property name="deleted" value="insert"/>
+        </plugin>
+
+        <!--注释-->
+        <commentGenerator>
+            <!--<property name="javaFileEncoding" value="UTF-8"/>-->
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="false"/>
+            <!--生成的注释包含时间戳-->
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://rm-bp10u0e93427wkp4ako.mysql.rds.aliyuncs.com:3306/yicbridge_ss_dev?tinyInt1isBit=true&amp;useSSL=false&amp;serverTimezone=GMT%2b8&amp;useLegacyDatetimeCode=false&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;useUnicode=&amp;characterEncoding=UTF-8&amp;"
+                        userId="yicbridge" password="yicbridge">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.mybatis.plug.dao.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="sqlmapper" targetProject="src/main/resources"
+                         nameSpacePackage="com.mybatis.plug.dao.mapper">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mybatis.plug.dao.mapper"
+                             targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+                <serviceGenerator targetPackage="com.mybatis.plug.service" targetProject="src/main/java">
+                    <property name="enableSubPackages" value="true"/>
+                </serviceGenerator>
+
+
+        <!--          <controllerGenerator targetPackage="com.yjcloud.form.controller"  targetProject="src/main/java">-->
+        <!--               <property name="enableSubPackages" value="true"/>-->
+        <!--           </controllerGenerator>-->
+
+<!--                <table tableName="nmpa_risk_detail" domainObjectName="RiskDetail">-->
+<!--                    <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--                    <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--                    <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--                </table>-->
+<!--                <table tableName="nmpa_risk_detail" domainObjectName="RiskDetail">-->
+<!--                    <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--                    <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--                    <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--                </table>-->
+<!--        <table tableName="nmpa_risk_stat" domainObjectName="RiskStat">-->
+<!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--            <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+        <!--        <table tableName="nmpa_risk_rela" domainObjectName="RiskRela">-->
+        <!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+        <!--            <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--        </table>-->
+                <table tableName="yj_pro_complete_cancel" domainObjectName="ProCompleteCancel">
+                    <property name="ignoreQualifiersAtRuntime" value="true"/>
+                    <property name="selectOneByExampleStatementEnabled" value="true"/>
+                    <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+                </table>
+<!--                <table tableName="sp_fxyz" domainObjectName="SpFxyz">-->
+<!--                    <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--                    <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--                    <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--                    <columnOverride column ="fx_type" jdbcType ="VARCHAR"  property="fxType"/>-->
+<!--                    <columnOverride column ="fx_nr" jdbcType ="VARCHAR"  property="fxNr"/>-->
+<!--                </table>-->
+
+        <!--        <table tableName="YJY_YPSC_CORP_INFO" domainObjectName="YjyYpscCorpInfo">-->
+        <!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+        <!--            <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+        <!--            <property name="useActualColumnNames" value="true"/>-->
+        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--            <columnOverride column ="C_CHOUYANGDBH" jdbcType ="TEXT"  property="cChouyangdbh"/>-->
+        <!--        </table>-->
+
+        <!--        <table tableName="yjy_ypsc_corp_info" domainObjectName="YjyYpscCorpInfo">-->
+        <!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+        <!--            <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--        </table>-->
+
+<!--        <table tableName="oa_risk_control_info" domainObjectName="OaRiskControlInfo">-->
+<!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--            <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+
+
+<!--        <table tableName="scyp_enterprise_licence" domainObjectName="ScypEnterpriseLicence">-->
+<!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--            <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+
+
+        <!--        <table tableName="scyp_enterprise_licence" domainObjectName="ScypEnterpriseLicence">-->
+        <!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+        <!--            <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+        <!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--        </table>-->
+
+<!--                <table tableName="dim_area" domainObjectName="DimArea">-->
+<!--                    <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--                    <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--                    <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--                </table>-->
+
+<!--        <table tableName="nmpa_risk_detail" domainObjectName="RiskDetail">-->
+<!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--            <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+
+        <!--        <table tableName="plat_drug_produce" domainObjectName="PlatDrugProduce">-->
+<!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--            <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+
+
+<!--            <table tableName="nmpa_risk_weight" domainObjectName="RiskWeight">-->
+<!--                <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--                <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--                <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--            </table>-->
+
+
+<!--        <table tableName="yj_file_busi_rela" domainObjectName="YjFileBusiRela">-->
+<!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--            <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+
+
+<!--        <table tableName="yj_file" domainObjectName="YjFile">-->
+<!--            <property name="ignoreQualifiersAtRuntime" value="true"/>-->
+<!--            <property name="selectOneByExampleStatementEnabled" value="true"/>-->
+<!--            <generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+<!--        </table>-->
+
+    </context>
+</generatorConfiguration>
